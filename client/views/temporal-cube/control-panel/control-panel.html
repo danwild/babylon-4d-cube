@@ -1,0 +1,24 @@
+<template name="controlPanel">
+
+	<div class="controlPanel">
+
+		<!--<h3>4d frame slider</h3>-->
+		<p class="time">{{timeSlice}}</p>
+		<p>
+			{{>timeSlider}}
+			<button class="button load-frames-gbr">GBR frames <i class="fa fa-download"></i></button>
+			<button class="button load-frames-gladstone">Gladstone frames <i class="fa fa-download"></i></button>
+			<button class="button play"><i class="fa fa-play"></i></button>
+			<button class="button pause"><i class="fa fa-pause"></i></button>
+			<button class="button secondary demo-frames">Static frames <i class="fa fa-thumbs-down"></i></button>
+
+			<span class="vr-input">
+				<input type="radio" class="vr-enabled" name="vr-enabled" value="false" id="vr-enabled-false" checked>
+				<label for="vr-enabled-false">Normal View</label>
+    			<input type="radio" class="vr-enabled" name="vr-enabled" value="true" id="vr-enabled-true" >
+				<label for="vr-enabled-true">VR View</label>
+			</span>
+		</p>
+	</div>
+
+</template>

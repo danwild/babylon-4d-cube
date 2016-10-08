@@ -1,0 +1,21 @@
+
+@import '{}/node_modules/foundation-sites/scss/foundation.scss';
+@include foundation-everything;
+
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #373b5a;
+    color: #fefefe;
+}
+
+.center-block {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
