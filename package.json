@@ -2,9 +2,10 @@
 	"name": "babylon-4d-cube",
 	"private": true,
 	"scripts": {
-		"start": "meteor run"
+		"start": "meteor --settings settings.json"
 	},
 	"dependencies": {
+		"aws-sdk": "^2.6.7",
 		"foundation-sites": "^6.2.3",
 		"meteor-node-stubs": "^0.2.3",
 		"node-base64-image": "^1.0.1",

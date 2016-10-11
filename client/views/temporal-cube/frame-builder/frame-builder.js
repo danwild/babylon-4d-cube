@@ -25,7 +25,6 @@ FrameBuilder = {
 		abovemaxcolor: "extend",
 		belowmincolor: "extend",
 		colorscalerange: "0.01576272,0.34310514",
-		elevation: "-8.3",
 		format: "image/png",
 		layers: "Chl_a_sum",
 		logscale: false,
@@ -140,6 +139,74 @@ FrameBuilder = {
 		"-103.0",
 		"-170.0"
 	],
+
+	initS3: function(){
+
+		var zCount = 2;
+		var tCount = 24;
+
+		TimeSlider.updateMax(tCount - 1);
+
+		// a plane for each elevation point
+		for(var z = 0; z < zCount; z++){
+			FrameBuilder.frames.push([]);
+		}
+
+		// for each plane, add all time indexes
+		for(var z = 0; z < zCount; z++){
+
+			for(var t = 0; t < tCount; t++){
+				FrameBuilder.frames[z][t] = '';
+			}
+		}
+
+		FrameBuilder.loadS3Frames();
+	},
+
+	loadS3Frames: function(){
+
+		console.log('loadS3Frames');
+
+		Meteor.call('loadS3Frames', {
+			bucket: 'wms-animation-frames',
+			keys: [
+				'macq-harbour/421363d8102489383a5b21c0d0f7390a',
+				'macq-harbour/31c9a5933a10369a23fe6fe814647650'
+			]
+
+		}, function(err, frames) {
+
+			if (err) {
+				console.log(err);
+				LoadingSpinnerFullScreen.hide();
+				alert(err.message);
+			}
+
+			else {
+				console.log('great success');
+
+				FrameBuilder.formatS3Frames(frames);
+				Scene.init(FrameBuilder.frames);
+			}
+		});
+
+	},
+
+	formatS3Frames: function(frames){
+
+		console.log(frames);
+
+		for(var z = 0; z < frames.length; z++){
+			for(var t = 0; t < frames[z].length; t++){
+				FrameBuilder.frames[z][t] = frames[z][t].img;
+			}
+		}
+
+		FrameBuilder.times = _.map(frames[0], function(frame){ return frame.time; });
+		FrameBuilder.elevations = _.map(frames, function(frame){ return frame[0].elevation; });
+
+		console.log(FrameBuilder.frames);
+	},
 
 	/**
 	 * Setup the nested shell from config

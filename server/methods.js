@@ -22,6 +22,11 @@ Meteor.methods({
 		}
 	},
 
+	loadS3Frames: function(args){
+		this.unblock();
+		return Promise.all(S3RequestHandler.loadFrames(args));
+	},
+
 	loadFrames: function(args){
 		this.unblock();
 		return Promise.all(WmsRequestHandler.loadFrames(args));
@@ -35,12 +40,5 @@ Meteor.methods({
 			});
 		});
 	}
-
-	//requestImage: function(params){
-	//	RequestImage.download(params.url, params.fileName, function(){
-	//		console.log('done');
-	//		return true;
-	//	});
-	//}
 
 });

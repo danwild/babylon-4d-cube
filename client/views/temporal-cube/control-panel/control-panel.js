@@ -1,5 +1,9 @@
 Template.controlPanel.events({
 
+	"click .load-frames-mh": function(){
+		FrameBuilder.initS3();
+	},
+
 	"click .load-frames-gbr": function(){
 
 		// assign query params
@@ -45,7 +49,7 @@ Template.controlPanel.events({
 Template.controlPanel.helpers({
 
 	timeSlice: function () {
-		//if(FrameBuilder.frames.length > 0)	return Session.get("timeSlice");
+		//if(FrameBuilder.frames.length > 0) return Session.get("timeSlice");
 		return Session.get("timeSlice");
 	}
 
@@ -94,7 +98,7 @@ ControlPanel = {
 		ControlPanel.timer = setTimeout(function(){
 			ControlPanel.forward();
 			ControlPanel.animateLoop();
-		}, 300);
+		}, 200);
 	},
 
 	setFrameIndex: function(index){
@@ -111,7 +115,7 @@ ControlPanel = {
 
 	setSliderValue: function(value){
 		// not seeing a way in docs to update slider value programatically without re-init..
-		new Foundation.Slider( $("#time-slider"), { initialStart: value });
+		new Foundation.Slider( $("#time-slider"), { initialStart: value, end: FrameBuilder.times.length - 1 });
 	}
 
 };

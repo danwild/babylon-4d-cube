@@ -11,6 +11,9 @@ Scene = {
 
 	init: function(frames){
 
+		console.log('init');
+		console.log(frames);
+
 		this.canvas = document.getElementById("renderCanvas");
 		this.engine = new BABYLON.Engine(this.canvas, true);
 		this.scene = this.createScene(this.canvas, this.engine, frames);
@@ -57,7 +60,7 @@ Scene = {
 			// name, size, scene, optional side of orientation
 			var plane = BABYLON.Mesh.CreatePlane("plane", 120, scene);
 			plane.position.x = 0;
-			plane.position.y = -(i * 20) + 60;
+			plane.position.y = -(i * 20) + 30;
 			plane.rotation.x = Math.PI / 2;
 			plane.rotation.y = -1.6;
 
@@ -88,7 +91,7 @@ Scene = {
 			textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
 			textPlane.material = new BABYLON.StandardMaterial("textPlane", scene);
 			textPlane.position = new BABYLON.Vector3(0, 2, 0);
-			textPlane.position.y = -(i * 20) + 40;
+			textPlane.position.y = -(i * 20) + 10;
 
 			textPlane.material.diffuseTexture = textPlaneTexture;
 			textPlane.material.specularColor = new BABYLON.Color3(0, 0, 0);

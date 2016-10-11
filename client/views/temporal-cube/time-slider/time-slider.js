@@ -2,7 +2,7 @@ Session.set("timeSlice", '');
 
 Template.timeSlider.onRendered(function(){
 
-	new Foundation.Slider($('#time-slider'), {});
+	TimeSlider.slider = new Foundation.Slider($('#time-slider'), {});
 
 	$('#time-slider').on('moved.zf.slider', function(){
 
@@ -27,8 +27,9 @@ Template.timeSlider.helpers({
 
 TimeSlider = {
 
+	slider: null,
 	updateMax: function(max){
-		new Foundation.Slider($('#time-slider'), { end: max });
+		this.slider = new Foundation.Slider($('#time-slider'), { end: max });
 	}
 
 };
