@@ -1,4 +1,4 @@
-var AWS = require('aws-sdk');
+//var AWS = require('aws-sdk');
 //var credentials = new AWS.SharedIniFileCredentials({profile: 'csiro'});
 //AWS.config.credentials = credentials;
 
@@ -8,7 +8,7 @@ var AWS = require('aws-sdk');
 //	secretAccessKey: Meteor.settings.private.aws.aws_secret_access_key,
 //	region: 'ap-southeast-2'
 //});
-var s3 = new AWS.S3();
+//var s3 = new AWS.S3();
 
 
 

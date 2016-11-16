@@ -9,11 +9,11 @@ Template.controlPanel.events({
 		// assign query params
 		FrameBuilder.times = FrameBuilder.gbrTimes;
 		FrameBuilder.elevations = FrameBuilder.gbrElevations;
-		FrameBuilder.params = FrameBuilder.gbrParams;
-		FrameBuilder.url = FrameBuilder.gbrUrl;
-
-		LoadingSpinnerFullScreen.show("Pre-loading "+ (FrameBuilder.times.length * FrameBuilder.elevations.length) +" frames\n\n(go grab a coffee)");
-		FrameBuilder.init(false);
+		//FrameBuilder.params = FrameBuilder.gbrParams;
+		//FrameBuilder.url = FrameBuilder.gbrUrl;
+		//
+		//LoadingSpinnerFullScreen.show("Pre-loading "+ (FrameBuilder.times.length * FrameBuilder.elevations.length) +" frames\n\n(go grab a coffee)");
+		FrameBuilder.initFromFile(false);
 	},
 
 	"click .load-frames-gladstone": function(){

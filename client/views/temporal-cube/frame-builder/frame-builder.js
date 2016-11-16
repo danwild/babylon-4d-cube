@@ -1,5 +1,11 @@
 const querystring = require('querystring');
 
+var z0 = require('/public/ereefs/temp/0m/13-11-2016.json');
+var z5 = require('/public/ereefs/temp/5m/13-11-2016.json');
+var z12 = require('/public/ereefs/temp/12m/13-11-2016.json');
+var z17 = require('/public/ereefs/temp/17m/13-11-2016.json');
+var z23 = require('/public/ereefs/temp/23m/13-11-2016.json');
+
 FrameBuilder = {
 
 	frames: [],
@@ -105,40 +111,66 @@ FrameBuilder = {
 		time: null
 	},
 
-	gbrTimes: [
-		"2016-09-10T06:00:00.000Z",
-		//"2016-09-11T06:00:00.000Z",
-		//"2016-09-12T06:00:00.000Z",
-		//"2016-09-13T06:00:00.000Z",
-		//"2016-09-14T06:00:00.000Z",
-		//"2016-09-15T06:00:00.000Z",
-		//"2016-09-16T06:00:00.000Z",
-		//"2016-09-17T06:00:00.000Z",
-		//"2016-09-18T06:00:00.000Z",
-		//"2016-09-19T06:00:00.000Z",
-		//"2016-09-20T06:00:00.000Z",
-		//"2016-09-21T06:00:00.000Z",
-		//"2016-09-22T06:00:00.000Z",
-		//"2016-09-23T06:00:00.000Z",
-		//"2016-09-24T06:00:00.000Z",
-		//"2016-09-25T06:00:00.000Z",
-		//"2016-09-26T06:00:00.000Z",
-		//"2016-09-27T06:00:00.000Z",
-		//"2016-09-28T06:00:00.000Z",
-		//"2016-09-29T06:00:00.000Z",
-		//"2016-09-30T14:00:00.000Z",
-		//"2016-10-01T06:00:00.000Z",
-		//"2016-10-02T05:00:00.000Z",
-		//"2016-10-02T14:00:00.000Z"
-	],
-
+	gbrTimes: ["2016-11-13T00:00:00.000Z","2016-11-13T01:00:00.000Z","2016-11-13T02:00:00.000Z","2016-11-13T03:00:00.000Z","2016-11-13T04:00:00.000Z","2016-11-13T05:00:00.000Z","2016-11-13T06:00:00.000Z","2016-11-13T07:00:00.000Z","2016-11-13T08:00:00.000Z","2016-11-13T09:00:00.000Z","2016-11-13T10:00:00.000Z","2016-11-13T11:00:00.000Z","2016-11-13T12:00:00.000Z","2016-11-13T13:00:00.000Z","2016-11-13T14:00:00.000Z"],
 	gbrElevations: [
 		"-0.5",
-		"-23.75",
-		"-49.0",
-		"-103.0",
-		"-170.0"
+		"-5.55",
+		"-12.75",
+		"-17.75",
+		"-23.75"
 	],
+
+	initFromFile: function(){
+
+		var zCount = 5;
+		var tCount = 24;
+
+		TimeSlider.updateMax(tCount - 1);
+
+		// a plane for each elevation point
+		for(var z = 0; z < zCount; z++){
+			FrameBuilder.frames.push([]);
+		}
+
+		// for each plane, add all time indexes
+		for(var z = 0; z < zCount; z++){
+
+			for(var t = 0; t < tCount; t++){
+				FrameBuilder.frames[z][t] = '';
+			}
+		}
+
+		FrameBuilder.loadFramesFromFile();
+	},
+
+	loadFramesFromFile: function(){
+
+		console.log('loadFramesFromFile');
+
+		LoadingSpinnerFullScreen.hide();
+
+		var frames = [
+			z0,
+			z5,
+			z12,
+			z17,
+			z23
+		];
+
+		for(var z = 0; z < frames.length; z++){
+			for(var t = 0; t < frames[z].length; t++){
+				FrameBuilder.frames[z][t] = frames[z][t].img;
+			}
+		}
+
+		FrameBuilder.times = _.map(frames[0], function(frame){ return frame.time; });
+		FrameBuilder.elevations = _.map(frames, function(frame){ return frame[0].elevation; });
+
+		console.log(FrameBuilder.frames);
+
+		Scene.init(FrameBuilder.frames);
+
+	},
 
 	initS3: function(){
 
